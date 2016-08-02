@@ -204,6 +204,7 @@ var toGeoJSON = (function() {
                     extendedData = get1(root, 'ExtendedData'),
                     lineStyle = get1(root, 'LineStyle'),
                     polyStyle = get1(root, 'PolyStyle'),
+		    iconStyle = get1(root, 'IconStyle'),
                     visibility = get1(root, 'visibility');
 
                 if (!geomsAndTimes.geoms.length) return [];
@@ -253,6 +254,10 @@ var toGeoJSON = (function() {
                     if (!isNaN(popacity)) properties['fill-opacity'] = popacity;
                     if (fill) properties['fill-opacity'] = fill === '1' ? properties['fill-opacity'] || 1 : 0;
                     if (outline) properties['stroke-opacity'] = outline === '1' ? properties['stroke-opacity'] || 1 : 0;
+                }
+                if (iconStyle) {
+                        var iconUrl = nodeVal(get1(iconStyle, 'href'));
+                        properties['iconUrl'] = iconUrl;
                 }
                 if (extendedData) {
                     var datas = get(extendedData, 'Data'),
